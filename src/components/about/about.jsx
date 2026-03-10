@@ -1,5 +1,5 @@
 import Container from '../container/container';
-import './about.scss';
+import './About.scss';
 import viktoria from './Viktoria.png'
 
 const About = () => {

@@ -1,10 +1,11 @@
 
 import Faq from "../faq/faq";
+import Price from "../price/price";
 
 const PriceAndConditions = () => {
     return (
         <main>
-            <Faq/>
+            <Price/>
         </main>
     )
 }
