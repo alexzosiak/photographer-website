@@ -1,5 +1,5 @@
-import Container from '../container/container';
-import './Type-of-filming.scss';
+import Container from '../Container/Container';
+import './TypeOfFilming.scss';
 import one from './img/1.png';
 import two from './img/2.png';
 import tree from './img/3.png';

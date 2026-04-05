@@ -1,20 +1,21 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
-import Header from '../Header/header';
-import HomePage from '../pages/homePage';
-import PriceAndConditions from '../pages/priceAndConditionsPage';
-import Footer from '../footer/footer';
+import AppHeader from './components/AppHeader/AppHeader';
+import HomePage from './pages/HomePage';
+import PriceAndConditions from './pages/PriceAndConditionsPage';
+import AppFooter from './components/AppFooter/AppFooter';
 
 const App = () => {
+    
     return (
         <BrowserRouter>
-                <Header />
+                <AppHeader />
             <Routes>
                 <Route path='/' element={<HomePage/>}></Route>
                 <Route path='/price-and-conditions' element={<PriceAndConditions/>}></Route>
                 <Route path='/price-and-conditions' element={<PriceAndConditions/>}></Route>
                 <Route path='/price-and-conditions' element={<PriceAndConditions/>}></Route>
             </Routes>
-            <Footer/>
+            <AppFooter/>
         </BrowserRouter>
     );
 };

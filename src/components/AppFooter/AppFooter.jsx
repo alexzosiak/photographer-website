@@ -1,7 +1,7 @@
 import Container from '../container/container';
-import './footer.scss';
+import './AppFooter.scss';
 
-const Footer = () => {
+const AppFooter = () => {
     return (
         <footer className='footer'>
             <Container>
@@ -24,4 +24,4 @@ const Footer = () => {
     )
 }
 
-export default Footer;
+export default AppFooter;
