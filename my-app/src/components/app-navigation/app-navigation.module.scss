@@ -1,0 +1,21 @@
+.navigation {
+    
+    &__list {
+        display: flex;
+        justify-content: space-around;
+        padding: 25px 0px;
+    }
+
+    &__item {
+        list-style-type: none;
+    }
+
+    &__link {
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 3px;
+        color: black;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+}

@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Oranienbaum } from "next/font/google";
 import "./globals.css";
+import AppNavigation from "@/components/app-navigation/AppNavigation";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const oranienbaum = Oranienbaum({
+    variable: '--font-oranienbaum',
+    subsets: ["latin"],
+    style: 'normal',
+    weight: ['400'],
+    display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -23,8 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={oranienbaum.className}>
+        <body>
+            <header className="container">
+                <AppNavigation/>
+            </header>
+            <main>
+                {children}
+            </main>
+        </body>
     </html>
   );
 }
