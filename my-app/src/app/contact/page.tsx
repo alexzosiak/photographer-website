@@ -1,5 +1,9 @@
+import ContactsHero from '@/components/contacts-hero/ContatcsHero';
+
 const Contact = (): JSX.Element => {
-    return <h1>Contact</h1>
+    return (
+        <ContactsHero/>
+    )
 }
 
 export default Contact;

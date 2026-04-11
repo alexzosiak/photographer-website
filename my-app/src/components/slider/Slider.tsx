@@ -6,6 +6,7 @@ import tree from './img/3.png';
 import four from './img/4.png';
 import five from './img/5.png';
 
+// need to chenge names on 
 const Slider = () => {
     return (
         <section className='slider'>

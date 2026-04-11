@@ -1,0 +1,54 @@
+
+.type {
+
+    &__title {
+        margin-top: 80px;
+        text-align: center;
+        font-size: 40px;
+    }
+    
+    &__subtitle {
+        margin-top: 25px;
+        text-align: center;
+    }
+
+    &__cards {
+        margin-top: 90px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__card {
+        position: relative;
+        list-style-type: none;
+
+        &-img {
+            display: block;
+        }
+        &-text {
+            position: absolute;
+            
+            text-transform: uppercase;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            color: rgb(255, 255, 255);
+        }
+    }
+
+    &__button {
+        margin-top: 80px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 300px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 23px 50px;
+        background-color: #F7F7F7;
+        color: black;
+        text-decoration: none;
+    }
+
+}

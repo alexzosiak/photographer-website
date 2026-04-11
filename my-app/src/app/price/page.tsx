@@ -1,6 +1,13 @@
+import Price from '@/components/price/Price';
+import Faq from '@/components/faq/Faq';
 
-const Price = (): JSX.Element => {
-    return <h1>this is Price page!</h1>
+const PricePage = (): JSX.Element => {
+    return (
+        <>
+            <Price/>
+            <Faq/>
+        </>
+    )
 }
 
-export default Price;
+export default PricePage;
