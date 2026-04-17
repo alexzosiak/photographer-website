@@ -1,13 +1,44 @@
 
 .faq {
+    padding: 70px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 
     &__title {
         text-align: center;
+        font-size: 96px;
+        letter-spacing: 20%;
     }
 
+    &__list {
+        width: 1000px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+   
+    }
+
+    &__item {
+        min-width: 400px;
+    }
+    
     &__wrapper {
         display: flex;
-        gap: 50px;
+        justify-content: space-between;
+    }
+
+    &__question {
+
+    }
+    &__answer {
+        max-width: 370px;
+    }
+    
+    li {
+      
     }
 }
 

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Oranienbaum } from "next/font/google";
-import "./globals.css";
+import "../scss/global.scss";
 import AppNavigation from "@/components/app-navigation/AppNavigation";
+import AppFooter from "@/components/app-footer/AppFooter";
 
 const oranienbaum = Oranienbaum({
     variable: '--font-oranienbaum',
@@ -30,6 +31,7 @@ export default function RootLayout({
             <main>
                 {children}
             </main>
+            <AppFooter/>
         </body>
     </html>
   );

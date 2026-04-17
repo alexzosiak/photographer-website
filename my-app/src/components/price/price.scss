@@ -20,9 +20,9 @@
         max-width: 270px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        list-style-type: none;
+       
 
         &-img {
             max-width: 270px;
@@ -39,7 +39,8 @@
         }
        
         &-price {
-            margin-top: 60px;
+            margin-top: 30px;
+            font-size: 1.2rem;
         }
     }
 }
