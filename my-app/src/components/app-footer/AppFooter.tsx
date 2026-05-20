@@ -27,7 +27,7 @@ const AppFooter = () => {
                         </li>
                         <li className={style.navigation__item}>
                             <Link href="/contact" className={style.navigation__link}>
-                                contact
+                                contacts
                             </Link>
                         </li>
                     </ul>
