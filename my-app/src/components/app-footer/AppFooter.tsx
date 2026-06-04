@@ -28,6 +28,7 @@ const AppFooter = () => {
                         <li className={style.navigation__item}>
                             <Link href="/contact" className={style.navigation__link}>
                                 contacts
+                   
                             </Link>
                         </li>
                     </ul>

@@ -19,7 +19,7 @@ const AppNavigation = (): JSX.Element => {
                         </Link>
                     </li>
                     <li className={style.navigation__item}>
-                        <Link href="/portfolio" className={style.navigation__link}>
+                        <Link href="/gallery" className={style.navigation__link}>
                             portfolio
                         </Link>
                     </li>

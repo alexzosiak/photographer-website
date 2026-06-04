@@ -1,10 +1,10 @@
 
-export const getAlbums = async () => {
-    const res = await fetch('api/albums');
+// export const getAlbums = async () => {
+//     const res = await fetch('api/albums');
 
-    if (!res.ok) {
-        throw new Error("Failed to fetch albums");
-    }
+//     if (!res.ok) {
+//         throw new Error("Failed to fetch albums");
+//     }
 
-    return res.json()
-}
+//     return res.json()
+// }
