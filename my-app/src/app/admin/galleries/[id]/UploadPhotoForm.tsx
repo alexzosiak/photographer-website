@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import styles from "./UploadPhotoForm.module.scss";
 
 type Props = {
   galleryId: string;
@@ -13,12 +14,13 @@ export default function UploadPhotoForm({ galleryId, slug }: Props) {
   const [isUploading, setIsUploading] = useState(false);
 
   async function handleUpload(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
+  const files = Array.from(event.target.files || []);
 
-    if (!file) return;
+  if (files.length === 0) return;
 
-    setIsUploading(true);
+  setIsUploading(true);
 
+  for (const file of files) {
     const formData = new FormData();
 
     formData.append("file", file);
@@ -33,12 +35,11 @@ export default function UploadPhotoForm({ galleryId, slug }: Props) {
     const uploadData = await uploadRes.json();
 
     if (!uploadRes.ok) {
-      alert("Upload failed");
-      setIsUploading(false);
-      return;
+      alert(`Upload failed: ${file.name}`);
+      continue;
     }
 
-    const photoRes = await fetch("/api/photos", {
+    await fetch("/api/photos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,24 +49,30 @@ export default function UploadPhotoForm({ galleryId, slug }: Props) {
         key: uploadData.key,
       }),
     });
-
-    if (!photoRes.ok) {
-      alert("Photo saved to R2, but failed to save in database");
-      setIsUploading(false);
-      return;
-    }
-
-    setIsUploading(false);
-    router.refresh();
   }
 
+  setIsUploading(false);
+  router.refresh();
+}
+
+ 
+
   return (
-    <div>
-      <h3>Upload photo</h3>
+    <div className={styles.upload}>
+      <div>
+        <h3 className={styles.title}>Upload photo</h3>
+        <p className={styles.text}>Add a new image to this gallery.</p>
+      </div>
 
-      <input type="file" accept="image/*" onChange={handleUpload} />
+      <input
+        className={styles.input}
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleUpload}
+      />
 
-      {isUploading && <p>Uploading...</p>}
+      {isUploading && <p className={styles.status}>Uploading...</p>}
     </div>
   );
 }

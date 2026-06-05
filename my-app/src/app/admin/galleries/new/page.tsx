@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import styles from "./page.module.scss";
 
 const availableTags = ["Family", "Wedding", "Couple", "Pregnancy"];
 
@@ -45,73 +47,85 @@ export default function NewGalleryPage() {
   }
 
   return (
-    <main>
-      <h1>Create Gallery</h1>
+    <section className={styles.page}>
+      <Link href="/admin/galleries" className={styles.backLink}>
+        ← Back to galleries
+      </Link>
+      <h1 className={styles.title}>Create Gallery</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Title
-            <input
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
-              placeholder="Family Session"
-            />
-          </label>
-        </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label className={styles.field}>
+          <span>Title</span>
+          <input
+            className={styles.input}
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            placeholder="Family Session"
+          />
+        </label>
 
-        <div>
-          <label>
-            Slug
-            <input
-              value={slug}
-              onChange={(event) => setSlug(event.target.value)}
-              placeholder="family-session"
-            />
-          </label>
-        </div>
+        <label className={styles.field}>
+          <span>Slug</span>
+          <input
+            className={styles.input}
+            value={slug}
+            onChange={(event) => setSlug(event.target.value)}
+            placeholder="family-session"
+          />
+        </label>
 
-        <div>
-          <p>Tags</p>
+        <fieldset className={styles.fieldset}>
+          <legend>Tags</legend>
 
-          {availableTags.map((tag) => (
-            <label key={tag}>
-              <input
-                type="checkbox"
-                checked={selectedTags.includes(tag)}
-                onChange={() => toggleTag(tag)}
-              />
-              {tag}
-            </label>
-          ))}
-        </div>
+          <div className={styles.tags}>
+            {availableTags.map((tag) => (
+              <label key={tag} className={styles.checkbox}>
+                <input
+                  type="checkbox"
+                  checked={selectedTags.includes(tag)}
+                  onChange={() => toggleTag(tag)}
+                />
+                <span>{tag}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
-        <button type="submit">Create</button>
+        <button type="submit" className={styles.button}>
+          Create
+        </button>
       </form>
-      <input
-  type="file"
-  onChange={async (event) => {
-    const file = event.target.files?.[0];
 
-    if (!file) return;
+      <div className={styles.coverUpload}>
+        <h2>Upload cover</h2>
+        <p>Cover will be uploaded for the current slug.</p>
+        <input
+          className={styles.fileInput}
+          type="file"
+          accept="image/*"
+          onChange={async (event) => {
+            const file = event.target.files?.[0];
 
-    const formData = new FormData();
+            if (!file) return;
 
-    formData.append("file", file);
-    formData.append("slug", slug || "test-gallery");
-    formData.append("type", "cover");
+            const formData = new FormData();
 
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+            formData.append("file", file);
+            formData.append("slug", slug || "test-gallery");
+            formData.append("type", "cover");
 
-    const data = await res.json();
+            const res = await fetch("/api/upload", {
+              method: "POST",
+              body: formData,
+            });
 
-    console.log(data);
-    alert(JSON.stringify(data, null, 2));
-  }}
-/>
-    </main>
+            const data = await res.json();
+
+            console.log(data);
+            alert(JSON.stringify(data, null, 2));
+          }}
+        />
+      </div>
+    </section>
   );
 }

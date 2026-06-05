@@ -1,18 +1,30 @@
 import Link from "next/link";
+import styles from "./page.module.scss";
 
 const Admin = () => {
     return (
-        <div style={{ padding: 20 }}>
-            <h1>Admin Dashboard</h1>
-            <p>Ти увійшов 🎉</p>
+        <section className={styles.admin}>
+            <div className={styles.header}>
+                <p className={styles.eyebrow}>Admin panel</p>
+                <h1 className={styles.title}>Dashboard</h1>
+                <p className={styles.text}>Ти увійшов. Тут можна керувати галереями та фотографіями.</p>
+            </div>
 
-            buttons:
-            <ul>
-                <li><Link href="/admin/galleries">Manage Galleries</Link></li>
-                <li><Link href="/admin/photos">Manage Photos</Link></li>
-                
+            <ul className={styles.actions}>
+                <li>
+                    <Link href="/admin/galleries" className={styles.action}>
+                        <span>Manage Galleries</span>
+                        <span className={styles.arrow}>→</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/admin/photos" className={styles.action}>
+                        <span>Manage Photos</span>
+                        <span className={styles.arrow}>→</span>
+                    </Link>
+                </li>
             </ul>
-        </div>
+        </section>
     );
 };
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import styles from "./page.module.scss";
 
 type Gallery = {
   id: string;
@@ -37,14 +38,20 @@ export default async function SingleGalleryPage({
   const { gallery, photos } = await getGallery(slug);
 
   return (
-    <main>
-      <Link href="/gallery">← Back</Link>
+    <section className={styles.page}>
+      <Link href="/gallery" className={styles.backLink}>
+        ← Back to gallery
+      </Link>
 
-      <h1>{gallery.title}</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>{gallery.title}</h1>
+        <p className={styles.count}>{photos.length} photos</p>
+      </div>
 
-      <div>
+      <div className={styles.grid}>
         {photos.map((photo) => (
           <img
+            className={styles.photo}
             key={photo.id}
             src={`${process.env.R2_PUBLIC_URL}/${photo.key}`}
             alt={gallery.title}
@@ -53,6 +60,6 @@ export default async function SingleGalleryPage({
           />
         ))}
       </div>
-    </main>
+    </section>
   );
 }

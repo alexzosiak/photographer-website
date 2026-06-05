@@ -1,0 +1,40 @@
+.upload {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid #ded4cb;
+  border-radius: 8px;
+  background: #fbfaf8;
+}
+
+.title {
+  margin-bottom: 6px;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.text {
+  color: #6b6057;
+  font-size: 16px;
+}
+
+.input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #cfc3b8;
+  border-radius: 6px;
+  background: #fff;
+  color: #27231f;
+  font: inherit;
+}
+
+.input:focus {
+  outline: 2px solid #aa9178;
+  outline-offset: 2px;
+}
+
+.status {
+  color: #8b7765;
+  font-size: 16px;
+}
