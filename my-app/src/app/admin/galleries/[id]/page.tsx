@@ -8,6 +8,8 @@ type Gallery = {
     id: string;
     title: string;
     slug: string;
+    cover_key: string | null;
+    tags: string[];
 };
 
 type Photo = {

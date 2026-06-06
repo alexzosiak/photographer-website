@@ -1,4 +1,5 @@
 import Link from "next/link";
+import GalleryLightbox from "../../gallery/GalleryLightbox";
 import styles from "./page.module.scss";
 
 type Gallery = {
@@ -49,16 +50,11 @@ export default async function SingleGalleryPage({
       </div>
 
       <div className={styles.grid}>
-        {photos.map((photo) => (
-          <img
-            className={styles.photo}
-            key={photo.id}
-            src={`${process.env.R2_PUBLIC_URL}/${photo.key}`}
-            alt={gallery.title}
-            width={400}
-            height={500}
-          />
-        ))}
+        <GalleryLightbox
+  photos={photos}
+  title={gallery.title}
+  publicUrl={process.env.NEXT_PUBLIC_R2_PUBLIC_URL || ""}
+/>
       </div>
     </section>
   );

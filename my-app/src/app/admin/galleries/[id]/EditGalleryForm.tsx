@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import styles from "./page.module.scss";
 
 const availableTags = ["Family", "Wedding", "Couple", "Pregnancy"];
 
@@ -89,56 +90,82 @@ export default function EditGalleryForm({ gallery }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>Gallery settings</h3>
+    <form onSubmit={handleSubmit} className={styles.settingsForm}>
+      <div className={styles.formHeader}>
+        <div>
+          <span className={styles.label}>Settings</span>
+          <h3>Gallery settings</h3>
+        </div>
+        <button type="submit" className={styles.saveButton} disabled={isSaving}>
+          {isSaving ? "Saving..." : "Save changes"}
+        </button>
+      </div>
 
-      <div>
-        <label>
-          Title
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
+      <div className={styles.formGrid}>
+        <label className={styles.field}>
+          <span>Title</span>
+          <input
+            className={styles.input}
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
+        </label>
+
+        <label className={styles.field}>
+          <span>Slug</span>
+          <input
+            className={styles.input}
+            value={slug}
+            onChange={(event) => setSlug(event.target.value)}
+          />
         </label>
       </div>
 
-      <div>
-        <label>
-          Slug
-          <input value={slug} onChange={(e) => setSlug(e.target.value)} />
-        </label>
-      </div>
+      <fieldset className={styles.fieldset}>
+        <legend>Tags</legend>
 
-      <div>
-        <p>Tags</p>
+        <div className={styles.tagControls}>
+          {availableTags.map((tag) => (
+            <label
+              key={tag}
+              className={`${styles.tagControl} ${
+                selectedTags.includes(tag) ? styles.tagControlActive : ""
+              }`}
+            >
+              <input
+                type="checkbox"
+                checked={selectedTags.includes(tag)}
+                onChange={() => toggleTag(tag)}
+              />
+              <span>{tag}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
-        {availableTags.map((tag) => (
-          <label key={tag}>
-            <input
-              type="checkbox"
-              checked={selectedTags.includes(tag)}
-              onChange={() => toggleTag(tag)}
-            />
-            {tag}
-          </label>
-        ))}
-      </div>
-
-      <div>
-        <p>Cover</p>
+      <div className={styles.coverField}>
+        <div>
+          <span className={styles.label}>Cover</span>
+          <p>Upload a vertical cover image for the public gallery card.</p>
+        </div>
 
         {coverKey && (
           <img
+            className={styles.coverPreview}
             src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/${coverKey}`}
             alt={title}
             width={160}
-            height={160}
+            height={200}
           />
         )}
 
-        <input type="file" accept="image/*" onChange={handleCoverUpload} />
+        <input
+          className={styles.fileInput}
+          type="file"
+          accept="image/*"
+          onChange={handleCoverUpload}
+        />
       </div>
-
-      <button type="submit" disabled={isSaving}>
-        {isSaving ? "Saving..." : "Save changes"}
-      </button>
     </form>
   );
 }
