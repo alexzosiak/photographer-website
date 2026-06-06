@@ -2,6 +2,7 @@ import Link from 'next/link';
 import UploadPhotoForm from './UploadPhotoForm';
 import DeletePhotoButton from './DeletePhotoButton';
 import EditGalleryForm from "./EditGalleryForm";
+import SortablePhotos from "./SortablePhotos";
 import styles from './page.module.scss';
 
 type Gallery = {
@@ -65,7 +66,13 @@ export default async function AdminGalleryEditPage({
             
             <div className={styles.photoGrid}>
                 
-                {photos.map((photo) => (
+                {<SortablePhotos
+  photos={photos}
+  title={gallery.title}
+  publicUrl={process.env.NEXT_PUBLIC_R2_PUBLIC_URL || ""}
+/>}
+
+                {/* {photos.map((photo) => (
                      <div key={photo.id}>
                     <DeletePhotoButton photoId={photo.id} />
                     <img
@@ -77,7 +84,7 @@ export default async function AdminGalleryEditPage({
                         height={250}
                     />
                     </div>
-                ))}
+                ))} */}
             </div>
         </section>
     );
