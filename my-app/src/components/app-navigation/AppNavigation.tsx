@@ -1,7 +1,7 @@
 import Link from "next/link";
 import style from './app-navigation.module.scss';
 
-const AppNavigation = (): JSX.Element => {
+const AppNavigation = () => {
     return (
         <nav className={style.navigation}>
                 <ul className={style.navigation__list}>

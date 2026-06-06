@@ -1,7 +1,10 @@
 import Link from "next/link";
 import styles from "./page.module.scss";
+import { requireAdminAuth } from "@/lib/adminAuth";
 
-const Admin = () => {
+const Admin = async () => {
+    await requireAdminAuth();
+
     return (
         <section className={styles.admin}>
             <div className={styles.header}>

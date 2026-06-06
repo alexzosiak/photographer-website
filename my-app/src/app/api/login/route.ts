@@ -1,23 +1,24 @@
-import { NextResponse } from 'next/server';
-import { Router } from 'next/router';
+import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-    const { login, password } = await req.json();
-    console.log(login, password);
+export async function POST(request: Request) {
+  const { password } = await request.json();
 
-    if (
-        login !== process.env.ADMIN_LOGIN ||
-        password !== process.env.ADMIN_PASSWORD
-    ) {
-        return new NextResponse('Unauthorized', { status: 401 });
-    }
+  if (password !== process.env.ADMIN_PASSWORD) {
+    return NextResponse.json(
+      { error: "Invalid password" },
+      { status: 401 }
+    );
+  }
 
-    const response = NextResponse.json({ ok: true });
+  const response = NextResponse.json({ success: true });
 
-    response.cookies.set('admin_token', 'logged_in', {
-        httpOnly: true,
-        path: '/',
-    });
+  response.cookies.set("admin_auth", "true", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 60 * 60 * 24,
+  });
 
-    return response;
+  return response;
 }

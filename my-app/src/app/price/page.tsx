@@ -1,7 +1,7 @@
 import Price from '@/components/price/Price';
 import Faq from '@/components/Faq/Faq';
 
-const PricePage = (): JSX.Element => {
+const PricePage = () => {
     return (
         <>
             <Price/>

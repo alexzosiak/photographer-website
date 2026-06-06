@@ -1,52 +1,49 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
+export default function AdminLoginPage() {
+  const router = useRouter();
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-    const router = useRouter();
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-    async function handleLogin() {
-        const res = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ login, password }),
-        });
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password }),
+    });
 
-        if (res.ok) {
-            router.push('/admin');
-        } else {
-            alert('Wrong login or password');
-        }
+    if (!res.ok) {
+      setError("Wrong password");
+      return;
     }
 
-    return (
-        <div style={{ padding: 20 }}>
-            <h1>Admin Login</h1>
+    router.push("/admin/galleries");
+    router.refresh();
+  }
 
-            <input
-                placeholder="Login"
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
-            />
+  return (
+    <main>
+      <h1>Admin Login</h1>
 
-            <br />
-            <br />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
 
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
+        <button type="submit">Login</button>
+      </form>
 
-            <br />
-            <br />
-
-            <button onClick={handleLogin}>Login</button>
-        </div>
-    );
+      {error && <p>{error}</p>}
+    </main>
+  );
 }
