@@ -18,6 +18,15 @@ export async function POST(request: Request) {
       );
     }
 
+    const folderSlug = slug.trim();
+
+    if (!folderSlug) {
+      return NextResponse.json(
+        { error: "Slug is required" },
+        { status: 400 }
+      );
+    }
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
@@ -26,8 +35,8 @@ export async function POST(request: Request) {
 
     const key =
       type === "cover"
-        ? `covers/${slug}-${fileName}`
-        : `galleries/${slug}/${fileName}`;
+        ? `covers/${folderSlug}/${fileName}`
+        : `galleries/${folderSlug}/${fileName}`;
 
     await r2.send(
       new PutObjectCommand({

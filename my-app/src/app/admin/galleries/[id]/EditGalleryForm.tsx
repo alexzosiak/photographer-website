@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 
 const availableTags = ["Family", "Wedding", "Couple", "Pregnancy"];
@@ -24,8 +24,24 @@ export default function EditGalleryForm({ gallery }: Props) {
   const [title, setTitle] = useState(gallery.title);
   const [slug, setSlug] = useState(gallery.slug);
   const [coverKey, setCoverKey] = useState(gallery.cover_key || "");
+  const [coverFile, setCoverFile] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>(gallery.tags || []);
   const [isSaving, setIsSaving] = useState(false);
+  const [isPhotoUploading, setIsPhotoUploading] = useState(false);
+
+  useEffect(() => {
+    function handlePhotoUpload(event: Event) {
+      const uploadEvent = event as CustomEvent<{ isUploading: boolean }>;
+
+      setIsPhotoUploading(uploadEvent.detail.isUploading);
+    }
+
+    window.addEventListener("gallery-photo-upload", handlePhotoUpload);
+
+    return () => {
+      window.removeEventListener("gallery-photo-upload", handlePhotoUpload);
+    };
+  }, []);
 
   function toggleTag(tag: string) {
     setSelectedTags((prev) =>
@@ -35,36 +51,44 @@ export default function EditGalleryForm({ gallery }: Props) {
     );
   }
 
-  async function handleCoverUpload(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-
-    if (!file) return;
-
-    const formData = new FormData();
-
-    formData.append("file", file);
-    formData.append("slug", slug);
-    formData.append("type", "cover");
-
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      alert("Cover upload failed");
-      return;
-    }
-
-    setCoverKey(data.key);
-  }
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setIsSaving(true);
+
+    let nextCoverKey = coverKey;
+
+    if (coverFile) {
+      const currentSlug = slug.trim();
+
+      if (!currentSlug) {
+        alert("Enter a slug before saving the gallery");
+        setIsSaving(false);
+        return;
+      }
+
+      const formData = new FormData();
+
+      formData.append("file", coverFile);
+      formData.append("slug", currentSlug);
+      formData.append("type", "cover");
+
+      const uploadRes = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const uploadData = await uploadRes.json();
+
+      if (!uploadRes.ok) {
+        alert("Cover upload failed");
+        setIsSaving(false);
+        return;
+      }
+
+      nextCoverKey = uploadData.key;
+      setCoverKey(uploadData.key);
+    }
 
     const res = await fetch(`/api/admin/galleries/${gallery.id}`, {
       method: "PATCH",
@@ -74,7 +98,7 @@ export default function EditGalleryForm({ gallery }: Props) {
       body: JSON.stringify({
         title,
         slug,
-        coverKey,
+        coverKey: nextCoverKey,
         tags: selectedTags,
       }),
     });
@@ -96,8 +120,16 @@ export default function EditGalleryForm({ gallery }: Props) {
           <span className={styles.label}>Settings</span>
           <h3>Gallery settings</h3>
         </div>
-        <button type="submit" className={styles.saveButton} disabled={isSaving}>
-          {isSaving ? "Saving..." : "Save changes"}
+        <button
+          type="submit"
+          className={styles.saveButton}
+          disabled={isSaving || isPhotoUploading}
+        >
+          {isSaving
+            ? "Saving..."
+            : isPhotoUploading
+              ? "Uploading photos..."
+              : "Save changes"}
         </button>
       </div>
 
@@ -163,7 +195,9 @@ export default function EditGalleryForm({ gallery }: Props) {
           className={styles.fileInput}
           type="file"
           accept="image/*"
-          onChange={handleCoverUpload}
+          onChange={(event) => {
+            setCoverFile(event.target.files?.[0] || null);
+          }}
         />
       </div>
     </form>

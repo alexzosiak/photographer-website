@@ -12,6 +12,8 @@ export default function NewGalleryPage() {
 
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
+  const [coverKey, setCoverKey] = useState("");
+  const [coverFile, setCoverFile] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   function toggleTag(tag: string) {
@@ -24,6 +26,37 @@ export default function NewGalleryPage() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const currentSlug = slug.trim();
+
+    let nextCoverKey = coverKey;
+
+    if (coverFile && !nextCoverKey) {
+      if (!currentSlug) {
+        alert("Enter a slug before creating the gallery");
+        return;
+      }
+
+      const formData = new FormData();
+
+      formData.append("file", coverFile);
+      formData.append("slug", currentSlug);
+      formData.append("type", "cover");
+
+      const uploadRes = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const uploadData = await uploadRes.json();
+
+      if (!uploadRes.ok) {
+        alert("Cover upload failed");
+        return;
+      }
+
+      nextCoverKey = uploadData.key;
+      setCoverKey(uploadData.key);
+    }
 
     const res = await fetch("/api/galleries", {
       method: "POST",
@@ -32,7 +65,8 @@ export default function NewGalleryPage() {
       },
       body: JSON.stringify({
         title,
-        slug,
+        slug: currentSlug,
+        coverKey: nextCoverKey,
         tags: selectedTags,
       }),
     });
@@ -91,41 +125,30 @@ export default function NewGalleryPage() {
           </div>
         </fieldset>
 
+        <div className={styles.coverUpload}>
+          <h2>Cover</h2>
+          <p>Choose a cover image. It will upload when you create the gallery.</p>
+          <input
+            className={styles.fileInput}
+            type="file"
+            accept="image/*"
+            onChange={(event) => {
+              setCoverFile(event.target.files?.[0] || null);
+              setCoverKey("");
+            }}
+          />
+        </div>
+
+        {coverKey && (
+          <p>
+            Cover uploaded: <strong>{coverKey}</strong>
+          </p>
+        )}
+
         <button type="submit" className={styles.button}>
           Create
         </button>
       </form>
-
-      <div className={styles.coverUpload}>
-        <h2>Upload cover</h2>
-        <p>Cover will be uploaded for the current slug.</p>
-        <input
-          className={styles.fileInput}
-          type="file"
-          accept="image/*"
-          onChange={async (event) => {
-            const file = event.target.files?.[0];
-
-            if (!file) return;
-
-            const formData = new FormData();
-
-            formData.append("file", file);
-            formData.append("slug", slug || "test-gallery");
-            formData.append("type", "cover");
-
-            const res = await fetch("/api/upload", {
-              method: "POST",
-              body: formData,
-            });
-
-            const data = await res.json();
-
-            console.log(data);
-            alert(JSON.stringify(data, null, 2));
-          }}
-        />
-      </div>
     </section>
   );
 }

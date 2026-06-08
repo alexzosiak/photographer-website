@@ -1,5 +1,32 @@
 import { NextResponse } from "next/server";
 import { pool } from "@/lib/db";
+import { DeleteObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
+import { r2 } from "@/lib/r2";
+
+async function listR2KeysByPrefix(prefix: string) {
+  const keys: string[] = [];
+  let continuationToken: string | undefined;
+
+  do {
+    const result = await r2.send(
+      new ListObjectsV2Command({
+        Bucket: process.env.R2_BUCKET_NAME!,
+        Prefix: prefix,
+        ContinuationToken: continuationToken,
+      })
+    );
+
+    for (const object of result.Contents || []) {
+      if (object.Key) {
+        keys.push(object.Key);
+      }
+    }
+
+    continuationToken = result.NextContinuationToken;
+  } while (continuationToken);
+
+  return keys;
+}
 
 export async function GET(
   request: Request,
@@ -65,8 +92,29 @@ export async function PATCH(
     const body = await request.json();
 
     const { title, slug, coverKey, tags } = body;
+    const nextCoverKey = coverKey || null;
 
     await pool.query("BEGIN");
+
+    const currentGalleryResult = await pool.query(
+      `
+      SELECT cover_key, slug
+      FROM galleries
+      WHERE id = $1
+      `,
+      [id]
+    );
+
+    if (currentGalleryResult.rows.length === 0) {
+      await pool.query("ROLLBACK");
+
+      return NextResponse.json(
+        { error: "Gallery not found" },
+        { status: 404 }
+      );
+    }
+
+    const previousCoverKey = currentGalleryResult.rows[0].cover_key;
 
     const galleryResult = await pool.query(
       `
@@ -79,7 +127,7 @@ export async function PATCH(
       WHERE id = $4
       RETURNING *
       `,
-      [title, slug, coverKey || null, id]
+      [title, slug, nextCoverKey, id]
     );
 
     await pool.query(
@@ -104,6 +152,19 @@ export async function PATCH(
 
     await pool.query("COMMIT");
 
+    if (previousCoverKey && previousCoverKey !== nextCoverKey) {
+      try {
+        await r2.send(
+          new DeleteObjectCommand({
+            Bucket: process.env.R2_BUCKET_NAME!,
+            Key: previousCoverKey,
+          })
+        );
+      } catch (deleteError) {
+        console.error("Failed to delete previous gallery cover:", deleteError);
+      }
+    }
+
     return NextResponse.json({
       gallery: galleryResult.rows[0],
     });
@@ -125,6 +186,57 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+
+    const galleryResult = await pool.query(
+      `
+      SELECT cover_key, slug
+      FROM galleries
+      WHERE id = $1
+      `,
+      [id]
+    );
+
+    if (galleryResult.rows.length === 0) {
+      return NextResponse.json(
+        { error: "Gallery not found" },
+        { status: 404 }
+      );
+    }
+
+    const photosResult = await pool.query(
+      `
+      SELECT key
+      FROM photos
+      WHERE gallery_id = $1
+      `,
+      [id]
+    );
+
+    const gallery = galleryResult.rows[0];
+    const coverFolderKeys = await listR2KeysByPrefix(`covers/${gallery.slug}/`);
+    const galleryFolderKeys = await listR2KeysByPrefix(
+      `galleries/${gallery.slug}/`
+    );
+
+    const keysToDelete = Array.from(
+      new Set(
+        [
+          ...coverFolderKeys,
+          ...galleryFolderKeys,
+          gallery.cover_key,
+          ...photosResult.rows.map((photo) => photo.key),
+        ].filter(Boolean)
+      )
+    );
+
+    for (const key of keysToDelete) {
+      await r2.send(
+        new DeleteObjectCommand({
+          Bucket: process.env.R2_BUCKET_NAME!,
+          Key: key,
+        })
+      );
+    }
 
     await pool.query(
       `

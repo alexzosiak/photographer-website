@@ -43,7 +43,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const { title, slug, tags } = body;
+    const { title, slug, coverKey, tags } = body;
 
     if (!title || !slug) {
       return NextResponse.json(
@@ -54,11 +54,11 @@ export async function POST(request: Request) {
 
     const galleryResult = await pool.query(
       `
-        INSERT INTO galleries (title, slug)
-        VALUES ($1, $2)
+        INSERT INTO galleries (title, slug, cover_key)
+        VALUES ($1, $2, $3)
         RETURNING *
       `,
-      [title, slug]
+      [title, slug, coverKey || null]
     );
 
     const gallery = galleryResult.rows[0];

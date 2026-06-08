@@ -11,7 +11,7 @@ export default function DeleteGalleryButton({ galleryId }: Props) {
 
   async function handleDelete() {
     const confirmed = confirm(
-      "Delete this gallery? Photos will be removed from the database, but files will stay in R2."
+      "Delete this gallery? Cover and photos will be removed from R2."
     );
 
     if (!confirmed) return;

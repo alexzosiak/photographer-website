@@ -45,18 +45,18 @@ export async function GET(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { slug } = await params;
 
     const galleryResult = await pool.query(
       `
       SELECT id, cover_key
       FROM galleries
-      WHERE id = $1
+      WHERE slug = $1
       `,
-      [id]
+      [slug]
     );
 
     if (galleryResult.rows.length === 0) {
@@ -67,6 +67,7 @@ export async function DELETE(
     }
 
     const gallery = galleryResult.rows[0];
+    const galleryId = gallery.id;
 
     const photosResult = await pool.query(
       `
@@ -74,7 +75,7 @@ export async function DELETE(
       FROM photos
       WHERE gallery_id = $1
       `,
-      [id]
+      [galleryId]
     );
 
     const keysToDelete = [
@@ -96,7 +97,7 @@ export async function DELETE(
       DELETE FROM galleries
       WHERE id = $1
       `,
-      [id]
+      [galleryId]
     );
 
     return NextResponse.json({ success: true });
