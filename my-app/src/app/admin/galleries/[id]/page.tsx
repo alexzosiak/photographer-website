@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import UploadPhotoForm from './UploadPhotoForm';
 import DeletePhotoButton from './DeletePhotoButton';
+import DeleteGalleryButton from "./DeleteGalleryButton";
 import EditGalleryForm from "./EditGalleryForm";
 import SortablePhotos from "./SortablePhotos";
 import styles from './page.module.scss';
@@ -58,6 +59,7 @@ export default async function AdminGalleryEditPage({
             
             <EditGalleryForm gallery={gallery} />
             <UploadPhotoForm galleryId={gallery.id} slug={gallery.slug} />
+            <DeleteGalleryButton galleryId={gallery.id} />
 
             <div className={styles.photosHeader}>
                 <h3>Photos</h3>

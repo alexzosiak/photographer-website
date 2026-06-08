@@ -1,0 +1,123 @@
+.page {
+  --ink: #17120f;
+  --muted: #756b63;
+  --paper: #fbfaf7;
+  --surface: #fffdf9;
+  --line: #e2ddd5;
+  --accent: #aa9178;
+
+  display: grid;
+  min-height: calc(100vh - 180px);
+  place-items: center;
+  padding: 56px 20px 88px;
+  color: var(--ink);
+}
+
+.panel {
+  width: min(100%, 430px);
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 13px;
+  letter-spacing: 1.8px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-bottom: 12px;
+  font-size: clamp(42px, 8vw, 64px);
+  font-weight: 400;
+  line-height: 0.95;
+}
+
+.text {
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 18px;
+  outline: none;
+  padding: 0 14px;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgb(170 145 120 / 18%);
+}
+
+.button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--surface);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.button:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.error {
+  margin-top: 14px;
+  color: #9b3328;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+@media (max-width: 520px) {
+  .page {
+    align-items: start;
+    min-height: auto;
+    padding-top: 38px;
+  }
+
+  .panel {
+    padding: 26px 20px;
+  }
+}

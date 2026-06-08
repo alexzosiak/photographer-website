@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "./page.module.scss";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -29,21 +30,33 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main>
-      <h1>Admin Login</h1>
+    <section className={styles.page}>
+      <div className={styles.panel}>
+        <p className={styles.eyebrow}>Admin access</p>
+        <h1 className={styles.title}>Login</h1>
+        <p className={styles.text}>
+          Enter the admin password to manage galleries and photo stories.
+        </p>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <label className={styles.field}>
+            <span className={styles.label}>Password</span>
+            <input
+              className={styles.input}
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
 
-        <button type="submit">Login</button>
-      </form>
+          <button className={styles.button} type="submit">
+            Login
+          </button>
+        </form>
 
-      {error && <p>{error}</p>}
-    </main>
+        {error && <p className={styles.error}>{error}</p>}
+      </div>
+    </section>
   );
 }

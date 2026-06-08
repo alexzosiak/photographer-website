@@ -21,6 +21,32 @@
   border-bottom: 1px solid var(--line);
 }
 
+.logoutButton {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 20px auto;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+}
+
+.logoutButton:hover {
+  border-color: #c8b9aa;
+  background: var(--paper);
+  color: var(--ink);
+}
+
 .backLink {
   display: inline-block;
   margin-bottom: 14px;
@@ -221,6 +247,10 @@
   }
 
   .button {
+    width: 100%;
+  }
+
+  .logoutButton {
     width: 100%;
   }
 

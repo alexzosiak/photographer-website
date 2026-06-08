@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import LogoutButton from "./LogoutButton";
 import styles from './page.module.scss';
 
 type Gallery = {
@@ -28,6 +29,7 @@ export default async function AdminGalleriesPage() {
 
     return (
         <section className={styles.page}>
+             <LogoutButton />
             <div className={styles.header}>
                 <div>
                     <Link href="/admin" className={styles.backLink}>
@@ -93,6 +95,7 @@ export default async function AdminGalleriesPage() {
                     </li>
                 ))}
             </ul>
+           
         </section>
     );
 }
