@@ -1,5 +1,5 @@
 import Price from '@/components/price/Price';
-import Faq from '@/components/Faq/Faq';
+import Faq from '@/components/faq/Faq';
 
 const PricePage = () => {
     return (
