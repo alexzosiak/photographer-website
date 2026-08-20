@@ -1,4 +1,4 @@
-import './Faq.scss';
+import './faq.scss';
 
 const Faq = () => {
     return (
