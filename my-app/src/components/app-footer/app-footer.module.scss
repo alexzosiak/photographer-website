@@ -23,3 +23,33 @@
         text-transform: uppercase;
     }
 }
+
+/* Mobile adaptation: зменшено відступи футера і вирівняно навігацію по центру на планшетах. */
+@media (max-width: 768px) {
+    .footer {
+        padding: 34px 20px;
+    }
+
+    .navigation {
+        &__list {
+            align-items: center;
+        }
+
+        &__link {
+            font-size: 18px;
+        }
+    }
+}
+
+/* Mobile adaptation: зроблено футер компактнішим для вузьких мобільних екранів. */
+@media (max-width: 480px) {
+    .footer {
+        padding: 28px 16px;
+    }
+
+    .navigation {
+        &__link {
+            font-size: 16px;
+        }
+    }
+}

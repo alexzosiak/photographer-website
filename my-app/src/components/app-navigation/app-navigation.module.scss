@@ -19,3 +19,31 @@
         text-decoration: none;
     }
 }
+
+/* Mobile adaptation: меню переноситься в кілька рядків, а посилання стають компактнішими. */
+@media (max-width: 768px) {
+    .navigation {
+        &__list {
+            flex-wrap: wrap;
+            gap: 14px 20px;
+            justify-content: center;
+            padding: 20px 16px;
+        }
+
+        &__link {
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+    }
+}
+
+/* Mobile adaptation: на малих екранах навігація стає вертикальною для кращої читабельності. */
+@media (max-width: 480px) {
+    .navigation {
+        &__list {
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+    }
+}

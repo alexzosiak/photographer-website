@@ -11,3 +11,46 @@
         }
     }
 }
+
+/* Mobile adaptation: слайдер отримує горизонтальний скрол, щоб фото не стискалися і не ламали ряд. */
+@media (max-width: 768px) {
+    .slider {
+        margin-top: 84px;
+        overflow: hidden;
+
+        &__list {
+            justify-content: flex-start;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 0 20px 12px;
+            scroll-snap-type: x mandatory;
+
+            & > li {
+                flex: 0 0 72%;
+                scroll-snap-align: center;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+        }
+    }
+}
+
+/* Mobile adaptation: на вузьких екранах фото в слайдері ширші для зручного перегляду пальцем. */
+@media (max-width: 480px) {
+    .slider {
+        margin-top: 64px;
+
+        &__list {
+            padding-left: 16px;
+            padding-right: 16px;
+
+            & > li {
+                flex-basis: 84%;
+            }
+        }
+    }
+}

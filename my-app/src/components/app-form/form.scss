@@ -19,6 +19,59 @@
     }
 }
 
+
+/* Mobile adaptation: форма і фото переходять у колонку, ширина інпутів стає гнучкою. */
+@media (max-width: 768px) {
+    .form-section {
+        padding: 44px 0;
+
+        &__wrapper {
+            flex-direction: column;
+            align-items: center;
+            gap: 34px;
+        }
+
+        &__title {
+            text-align: center;
+            font-size: 32px;
+        }
+
+        &__img {
+            margin-top: 0;
+            width: min(100%, 420px);
+            height: auto;
+        }
+    }
+
+    .form {
+        width: min(100%, 500px);
+        margin-top: 34px;
+
+        &__input {
+            min-height: 38px;
+        }
+    }
+}
+
+/* Mobile adaptation: на телефонах форма займає всю ширину, кнопка стає зручнішою для натискання. */
+@media (max-width: 480px) {
+    .form-section {
+        padding: 36px 0;
+
+        &__title {
+            font-size: 27px;
+        }
+    }
+
+    .form {
+        margin-top: 26px;
+
+        &__button {
+            width: 100%;
+            padding: 12px 15px;
+        }
+    }
+}
 .form {
     margin-top: 50px;
     display: flex;
@@ -42,4 +95,3 @@
         padding: 10px 15px;
     }
 }
-

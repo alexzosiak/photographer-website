@@ -44,3 +44,70 @@
         }
     }
 }
+
+/* Mobile adaptation: прайс-картки переходять у дві колонки з меншими відступами і стабільними зображеннями. */
+@media (max-width: 768px) {
+    .price {
+        margin-top: 72px;
+
+        &__title {
+            margin-top: 42px;
+            padding: 0 20px;
+            font-size: 28px;
+            line-height: 1.2;
+        }
+
+        &__list {
+            flex-wrap: wrap;
+            gap: 42px 24px;
+            padding: 0 20px;
+        }
+
+        &__card {
+            width: calc(50% - 12px);
+            max-width: 320px;
+
+            &-img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            &-list {
+                padding: 0;
+            }
+        }
+    }
+}
+
+/* Mobile adaptation: прайс на телефонах стає однією колонкою, текст і відступи зменшено для читабельності. */
+@media (max-width: 480px) {
+    .price {
+        margin-top: 56px;
+
+        &__title {
+            margin-top: 34px;
+            font-size: 23px;
+        }
+
+        &__list {
+            flex-direction: column;
+            align-items: center;
+            gap: 44px;
+            padding: 0 16px;
+        }
+
+        &__card {
+            width: 100%;
+            max-width: 340px;
+
+            &-title {
+                margin-top: 22px;
+            }
+
+            &-list,
+            &-price {
+                margin-top: 22px;
+            }
+        }
+    }
+}

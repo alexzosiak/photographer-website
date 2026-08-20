@@ -35,3 +35,64 @@
         }
     }
 }
+
+/* Mobile adaptation: емоційна картка переходить у колонку, зображення займає всю ширину, а великі відступи зменшено. */
+@media (max-width: 768px) {
+    .emotion {
+        margin-top: 70px;
+
+        &__title {
+            font-size: 32px;
+            line-height: 1.2;
+            letter-spacing: 2px;
+        }
+
+        &__card {
+            flex-direction: column;
+            gap: 34px;
+            margin-top: 56px;
+            padding: 36px;
+
+            &-img {
+                width: 100%;
+                height: auto;
+            }
+
+            &-title {
+                margin-top: 0;
+                font-size: 40px;
+                line-height: 1.05;
+            }
+
+            &-text {
+                font-size: 18px;
+                line-height: 1.45;
+            }
+        }
+    }
+}
+
+/* Mobile adaptation: зроблено блок компактнішим для телефонів, щоб текст не перевантажував екран. */
+@media (max-width: 480px) {
+    .emotion {
+        margin-top: 56px;
+
+        &__title {
+            font-size: 25px;
+            letter-spacing: 1px;
+        }
+
+        &__card {
+            margin-top: 38px;
+            padding: 24px;
+
+            &-title {
+                font-size: 31px;
+            }
+
+            &-text {
+                font-size: 16px;
+            }
+        }
+    }
+}

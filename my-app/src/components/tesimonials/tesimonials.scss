@@ -42,3 +42,55 @@
         }
     }
 }
+
+/* Mobile adaptation: відгуки переносяться в адаптивну сітку, а великі відступи й заголовки зменшено. */
+@media (max-width: 768px) {
+    .tesimonials {
+        margin-top: 76px;
+        padding: 0 20px;
+
+        &__title {
+            font-size: 38px;
+        }
+
+        &__cards {
+            flex-wrap: wrap;
+            gap: 46px 28px;
+            margin-top: 66px;
+        }
+
+        &__card {
+            width: calc(50% - 14px);
+
+            &-title {
+                font-size: 30px;
+                text-align: center;
+            }
+        }
+    }
+}
+
+/* Mobile adaptation: відгуки на телефонах стають однією колонкою з компактнішим текстом. */
+@media (max-width: 480px) {
+    .tesimonials {
+        margin-top: 58px;
+        padding: 0 16px;
+
+        &__title {
+            font-size: 30px;
+        }
+
+        &__cards {
+            flex-direction: column;
+            margin-top: 42px;
+        }
+
+        &__card {
+            width: 100%;
+
+            &-title {
+                font-size: 25px;
+            }
+        }
+    }
+}

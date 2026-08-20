@@ -21,3 +21,18 @@ a {
 .active {
     font-weight: 400;
 }
+
+/* Mobile adaptation: додано бокові відступи для контейнера, щоб контент не притискався до країв екрана. */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+}
+
+/* Mobile adaptation: зменшено бокові відступи контейнера для дуже вузьких екранів. */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+}

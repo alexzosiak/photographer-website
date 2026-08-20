@@ -42,3 +42,50 @@
     }
 }
 
+/* Mobile adaptation: FAQ отримує гнучку ширину, двоколонкову сітку і менший заголовок на планшетах. */
+@media (max-width: 768px) {
+    .faq {
+        padding: 58px 20px;
+
+        &__title {
+            font-size: 64px;
+            letter-spacing: 6px;
+        }
+
+        &__list {
+            width: 100%;
+            gap: 28px;
+        }
+
+        &__item {
+            min-width: 0;
+            width: calc(50% - 14px);
+        }
+
+        &__answer {
+            max-width: 100%;
+            line-height: 1.45;
+        }
+    }
+}
+
+/* Mobile adaptation: FAQ на телефонах стає однією колонкою без фіксованих ширин. */
+@media (max-width: 480px) {
+    .faq {
+        padding: 46px 16px;
+
+        &__title {
+            font-size: 42px;
+            letter-spacing: 3px;
+        }
+
+        &__list {
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        &__item {
+            width: 100%;
+        }
+    }
+}

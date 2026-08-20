@@ -26,3 +26,49 @@
         
     }
 }
+
+/* Mobile adaptation: зменшено висоту секції, padding картки й розмір заголовка/пунктів для планшетів. */
+@media (max-width: 768px) {
+    .advantages {
+        margin-top: 80px;
+        padding: 72px 20px;
+
+        &__card {
+            padding: 34px;
+
+            &-title {
+                font-size: 44px;
+                line-height: 1.05;
+            }
+
+            &-list {
+                margin-top: 30px;
+            }
+
+            &-item {
+                font-size: 21px;
+                line-height: 1.35;
+            }
+        }
+    }
+}
+
+/* Mobile adaptation: картка переїжджає в компактний мобільний формат з меншими шрифтами. */
+@media (max-width: 480px) {
+    .advantages {
+        margin-top: 60px;
+        padding: 56px 16px;
+
+        &__card {
+            padding: 24px;
+
+            &-title {
+                font-size: 34px;
+            }
+
+            &-item {
+                font-size: 18px;
+            }
+        }
+    }
+}

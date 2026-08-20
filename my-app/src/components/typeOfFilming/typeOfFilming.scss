@@ -52,3 +52,71 @@
     }
 
 }
+
+/* Mobile adaptation: картки типів зйомки переносяться в адаптивну сітку, а зображення отримують стабільну ширину. */
+@media (max-width: 768px) {
+    .type {
+        &__title {
+            margin-top: 64px;
+            font-size: 32px;
+            line-height: 1.2;
+        }
+
+        &__subtitle {
+            font-size: 18px;
+            line-height: 1.35;
+        }
+
+        &__cards {
+            margin-top: 56px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        &__card {
+            &-img {
+                width: 100%;
+                height: auto;
+            }
+
+            &-text {
+                font-size: 32px;
+            }
+        }
+
+        &__button {
+            margin-top: 56px;
+        }
+    }
+}
+
+/* Mobile adaptation: на телефонах картки стають однією колонкою, кнопка займає всю доступну ширину. */
+@media (max-width: 480px) {
+    .type {
+        &__title {
+            margin-top: 48px;
+            font-size: 25px;
+        }
+
+        &__subtitle {
+            font-size: 16px;
+        }
+
+        &__cards {
+            grid-template-columns: 1fr;
+            margin-top: 38px;
+        }
+
+        &__card {
+            &-text {
+                font-size: 28px;
+            }
+        }
+
+        &__button {
+            width: 100%;
+            padding: 18px 24px;
+        }
+    }
+}
