@@ -1,18 +1,18 @@
-import { Pool } from "pg";
+import { Pool } from 'pg';
 
 const globalForPg = globalThis as unknown as {
-  pgPool: Pool | undefined;
+    pgPool: Pool | undefined;
 };
 
 export const pool =
-  globalForPg.pgPool ??
-  new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
+    globalForPg.pgPool ??
+    new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPg.pgPool = pool;
+if (process.env.NODE_ENV !== 'production') {
+    globalForPg.pgPool = pool;
 }
