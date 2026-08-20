@@ -1,28 +1,7 @@
 import Link from 'next/link';
 import LogoutButton from "./LogoutButton";
+import { getGalleries } from "@/lib/galleries";
 import styles from './page.module.scss';
-
-type Gallery = {
-    id: string;
-    title: string;
-    slug: string;
-    tags: string[];
-    coverUrl: string | null;
-};
-
-async function getGalleries(): Promise<Gallery[]> {
-    const res = await fetch('http://localhost:3000/api/galleries', {
-        cache: 'no-store',
-    });
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch galleries');
-    }
-
-    const data = await res.json();
-
-    return data.galleries;
-}
 
 export default async function AdminGalleriesPage() {
     const galleries = await getGalleries();

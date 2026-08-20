@@ -1,32 +1,10 @@
 import { NextResponse } from "next/server";
 import { pool } from "@/lib/db";
+import { getGalleries } from "@/lib/galleries";
 
 export async function GET() {
   try {
-    const result = await pool.query(`
-      SELECT
-        g.id,
-        g.title,
-        g.slug,
-        g.cover_key,
-        g.created_at,
-        COALESCE(
-          json_agg(t.name) FILTER (WHERE t.name IS NOT NULL),
-          '[]'
-        ) AS tags
-      FROM galleries g
-      LEFT JOIN gallery_tags gt ON gt.gallery_id = g.id
-      LEFT JOIN tags t ON t.id = gt.tag_id
-      GROUP BY g.id
-      ORDER BY g.created_at DESC;
-    `);
-
-    const galleries = result.rows.map((gallery) => ({
-      ...gallery,
-      coverUrl: gallery.cover_key
-        ? `${process.env.R2_PUBLIC_URL}/${gallery.cover_key}`
-        : null,
-    }));
+    const galleries = await getGalleries();
 
     return NextResponse.json({ galleries });
   } catch (error) {

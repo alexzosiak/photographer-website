@@ -2,45 +2,23 @@ import { NextResponse } from "next/server";
 import { pool } from "@/lib/db";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { r2 } from "@/lib/r2";
+import { getGalleryBySlug } from "@/lib/galleries";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
+  const data = await getGalleryBySlug(slug);
 
-  const galleryResult = await pool.query(
-    `
-      SELECT *
-      FROM galleries
-      WHERE slug = $1
-    `,
-    [slug]
-  );
-
-  if (galleryResult.rows.length === 0) {
+  if (!data) {
     return NextResponse.json(
       { error: "Gallery not found" },
       { status: 404 }
     );
   }
 
-  const gallery = galleryResult.rows[0];
-
-  const photosResult = await pool.query(
-    `
-      SELECT *
-      FROM photos
-      WHERE gallery_id = $1
-      ORDER BY sort_order ASC
-    `,
-    [gallery.id]
-  );
-
-  return NextResponse.json({
-    gallery,
-    photos: photosResult.rows,
-  });
+  return NextResponse.json(data);
 }
 
 export async function DELETE(

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { pool } from "@/lib/db";
 import { DeleteObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import { r2 } from "@/lib/r2";
+import { getGalleryById } from "@/lib/galleries";
 
 async function listR2KeysByPrefix(prefix: string) {
   const keys: string[] = [];
@@ -34,45 +35,16 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+    const data = await getGalleryById(id);
 
-    const galleryResult = await pool.query(
-      `
-      SELECT
-        g.*,
-        COALESCE(
-          json_agg(t.name) FILTER (WHERE t.name IS NOT NULL),
-          '[]'
-        ) AS tags
-      FROM galleries g
-      LEFT JOIN gallery_tags gt ON gt.gallery_id = g.id
-      LEFT JOIN tags t ON t.id = gt.tag_id
-      WHERE g.id = $1
-      GROUP BY g.id
-      `,
-      [id]
-    );
-
-    if (galleryResult.rows.length === 0) {
+    if (!data) {
       return NextResponse.json(
         { error: "Gallery not found" },
         { status: 404 }
       );
     }
 
-    const photosResult = await pool.query(
-      `
-      SELECT *
-      FROM photos
-      WHERE gallery_id = $1
-      ORDER BY sort_order ASC
-      `,
-      [id]
-    );
-
-    return NextResponse.json({
-      gallery: galleryResult.rows[0],
-      photos: photosResult.rows,
-    });
+    return NextResponse.json(data);
   } catch (error) {
     console.error("GET admin gallery error:", error);
 

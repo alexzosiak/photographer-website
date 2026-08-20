@@ -1,28 +1,6 @@
 import styles from "./page.module.scss";
 import GalleryClient from "./GalleryClient";
-
-type Gallery = {
-  id: string;
-  title: string;
-  slug: string;
-  cover_key: string | null;
-  coverUrl: string | null;
-  tags: string[];
-};
-
-async function getGalleries(): Promise<Gallery[]> {
-  const res = await fetch("http://localhost:3000/api/galleries", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch galleries");
-  }
-
-  const data = await res.json();
-
-  return data.galleries;
-}
+import { getGalleries } from "@/lib/galleries";
 
 export default async function GalleryPage() {
   const galleries = await getGalleries();

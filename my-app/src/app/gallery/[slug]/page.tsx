@@ -1,34 +1,8 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import GalleryLightbox from "../../gallery/GalleryLightbox";
+import { getGalleryBySlug } from "@/lib/galleries";
 import styles from "./page.module.scss";
-
-type Gallery = {
-  id: string;
-  title: string;
-  slug: string;
-  cover_key: string | null;
-};
-
-type Photo = {
-  id: string;
-  key: string;
-  sort_order: number;
-};
-
-async function getGallery(slug: string): Promise<{
-  gallery: Gallery;
-  photos: Photo[];
-}> {
-  const res = await fetch(`http://localhost:3000/api/galleries/${slug}`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch gallery");
-  }
-
-  return res.json();
-}
 
 export default async function SingleGalleryPage({
   params,
@@ -36,7 +10,13 @@ export default async function SingleGalleryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { gallery, photos } = await getGallery(slug);
+  const data = await getGalleryBySlug(slug);
+
+  if (!data) {
+    notFound();
+  }
+
+  const { gallery, photos } = data;
 
   return (
     <section className={styles.page}>

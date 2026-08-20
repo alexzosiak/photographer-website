@@ -4,36 +4,9 @@ import DeletePhotoButton from './DeletePhotoButton';
 import DeleteGalleryButton from "./DeleteGalleryButton";
 import EditGalleryForm from "./EditGalleryForm";
 import SortablePhotos from "./SortablePhotos";
+import { notFound } from "next/navigation";
+import { getGalleryById } from "@/lib/galleries";
 import styles from './page.module.scss';
-
-type Gallery = {
-    id: string;
-    title: string;
-    slug: string;
-    cover_key: string | null;
-    tags: string[];
-};
-
-type Photo = {
-    id: string;
-    key: string;
-    sort_order: number;
-};
-
-async function getGallery(id: string): Promise<{
-    gallery: Gallery;
-    photos: Photo[];
-}> {
-    const res = await fetch(`http://localhost:3000/api/admin/galleries/${id}`, {
-        cache: 'no-store',
-    });
-
-    if (!res.ok) {
-        throw new Error('Failed to load gallery');
-    }
-
-    return res.json();
-}
 
 export default async function AdminGalleryEditPage({
     params,
@@ -41,7 +14,13 @@ export default async function AdminGalleryEditPage({
     params: Promise<{ id: string }>;
 }) {
     const { id } = await params;
-    const { gallery, photos } = await getGallery(id);
+    const data = await getGalleryById(id);
+
+    if (!data) {
+        notFound();
+    }
+
+    const { gallery, photos } = data;
 
     return (
         <section className={styles.page}>
