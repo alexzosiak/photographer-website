@@ -1,7 +1,19 @@
+'use client'
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import style from './app-navigation.module.scss';
 
+const links = [
+  { href: "/", label: "home" },
+  { href: "/price", label: "pricing & conditions" },
+  { href: "/gallery", label: "portfolio" },
+  { href: "/contact", label: "contact" },
+];
+
 const AppNavigation = () => {
+    const pathname = usePathname();
+
     return (
         <nav className={style.navigation}>
                 <ul className={style.navigation__list}>

@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import GalleryLightbox from "../../gallery/GalleryLightbox";
+import GalleryLightbox from "../GalleryLightbox";
 import { getGalleryBySlug } from "@/lib/galleries";
 import styles from "./page.module.scss";
+
+export const dynamic = "force-dynamic";
 
 export default async function SingleGalleryPage({
   params,

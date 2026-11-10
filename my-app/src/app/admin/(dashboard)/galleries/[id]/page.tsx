@@ -8,6 +8,8 @@ import { notFound } from "next/navigation";
 import { getGalleryById } from "@/lib/galleries";
 import styles from './page.module.scss';
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminGalleryEditPage({
     params,
 }: {

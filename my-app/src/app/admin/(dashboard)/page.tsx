@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./page.module.scss";
 import { requireAdminAuth } from "@/lib/adminAuth";
-import LogoutButton from "@/app/admin/galleries/LogoutButton";
+import LogoutButton from "@/app/admin/(dashboard)/galleries/LogoutButton";
 
 const Admin = async () => {
     await requireAdminAuth();

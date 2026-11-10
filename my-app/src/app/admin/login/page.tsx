@@ -25,7 +25,7 @@ export default function AdminLoginPage() {
       return;
     }
 
-    router.push("/admin/galleries");
+    router.push("/admin");
     router.refresh();
   }
 

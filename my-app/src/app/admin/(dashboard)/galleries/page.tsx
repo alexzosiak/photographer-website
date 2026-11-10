@@ -3,6 +3,8 @@ import LogoutButton from "./LogoutButton";
 import { getGalleries } from "@/lib/galleries";
 import styles from './page.module.scss';
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminGalleriesPage() {
     const galleries = await getGalleries();
 

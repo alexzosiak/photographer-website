@@ -2,6 +2,8 @@ import styles from "./page.module.scss";
 import GalleryClient from "./GalleryClient";
 import { getGalleries } from "@/lib/galleries";
 
+export const dynamic = "force-dynamic";
+
 export default async function GalleryPage() {
   const galleries = await getGalleries();
 
