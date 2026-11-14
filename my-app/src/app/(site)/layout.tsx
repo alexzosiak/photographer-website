@@ -1,16 +1,6 @@
 import type { Metadata } from 'next';
-import { Oranienbaum } from 'next/font/google';
-import '../../scss/global.scss';
-import AppNavigation from '@/components/app-navigation/AppNavigation';
-import AppFooter from '@/components/app-footer/AppFooter';
-
-const oranienbaum = Oranienbaum({
-    variable: '--font-oranienbaum',
-    subsets: ['latin'],
-    style: 'normal',
-    weight: ['400'],
-    display: 'swap',
-});
+import AppFooter from '@/components/shared/app-footer/AppFooter';
+import AppHeader from '@/components/shared/app-header/AppHeader';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -24,11 +14,9 @@ export default function RootLayout({
 }>) {
     return (
         <>
-            <header className={oranienbaum.className}>
-                <AppNavigation />
-            </header>
-            <main>{children}</main>
-            <AppFooter />
+            <AppHeader />
+            {children}
+            {/* <AppFooter /> */}
         </>
     );
 }

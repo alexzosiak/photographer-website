@@ -1,0 +1,7 @@
+@use './variable.scss' as *;
+
+@mixin title-h2 {
+    color: $accent-color-dark;
+    font-size: 3rem;
+    line-height: 1;
+}

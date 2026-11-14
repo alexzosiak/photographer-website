@@ -1,0 +1,35 @@
+/* Architectural Divider */
+
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background-color: #e2e5e9;
+}
+
+.ornament-divider__diamond {
+  width: 5px;
+  height: 5px;
+  border: 1px solid #646d77;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.section-divider {
+  padding: 5rem 1.5rem;
+  background: white;
+  @media (min-width: 768px) {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}

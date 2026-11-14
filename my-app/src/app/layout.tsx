@@ -1,13 +1,22 @@
 import type { Metadata } from 'next';
-import { Oranienbaum } from 'next/font/google';
+import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
 import '../scss/global.scss';
 
-const oranienbaum = Oranienbaum({
-    variable: '--font-oranienbaum',
-    subsets: ['latin'],
-    style: 'normal',
-    weight: ['400'],
+const cormorant = Cormorant_Garamond({
+    subsets: ['latin', 'cyrillic'],
+    weight: ['300', '400', '500', '600', '700'],
+    style: ['normal', 'italic'],
     display: 'swap',
+    variable: '--font-cormorant',
+    fallback: ['Georgia', 'serif'],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+    subsets: ['latin'],
+    weight: ['300', '400', '500', '600', '700'],
+    display: 'swap',
+    variable: '--font-jakarta',
+    fallback: ['sans-serif'],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +30,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={oranienbaum.className}>
+        <html lang="en" className={`${cormorant.variable} ${jakarta.variable}`}>
             <body>{children}</body>
         </html>
     );
