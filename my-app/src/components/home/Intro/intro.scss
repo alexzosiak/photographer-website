@@ -1,0 +1,105 @@
+.intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 7rem;
+
+    &__title {
+        width: 45rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 3rem;
+        line-height: 2.25rem;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+
+    &__description {
+        text-align: center;
+        margin-bottom: 2rem;
+        max-width: 36rem;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        line-height: 1.85;
+    }
+
+    &__list {
+     
+        display: grid;
+        grid-template-columns: repeat(4, 250px);
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        max-width: 78rem;
+        margin: 2rem auto 0;
+        padding-inline: 1.25rem;
+
+        // @media (min-width: 640px) {
+        //     grid-template-columns: repeat(3, minmax(0, 1fr));
+        //     gap: 1rem;
+        //     padding-inline: 1.5rem;
+        // }
+
+        // @media (min-width: 1024px) {
+        //     grid-template-columns: repeat(3, minmax(0, 1fr));
+        // }
+
+        &-item {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            &:nth-child(4n + 1), 
+            &:nth-child(4n + 3) {
+        transform: translateY(-10px);
+    }
+        }
+    }
+
+    &__image {
+        object-fit: cover;
+    }
+
+    &__button {
+        display: inline-flex;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 3.2rem;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        border: 1px solid rgb(75 82 90 / 0.4);
+        border-width: 1px;
+        border-color: rgb(75 82 90 / 0.4);
+        background-color: rgb(255 255 255);
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-top: 0.875rem;
+        padding-bottom: 0.875rem;
+        color: rgb(75 82 90);
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 300ms;
+        &:hover {
+            border-color: rgb(75 82 90);
+            background-color: rgb(75 82 90 / 0.06);
+        }
+
+        &:hover &-arrow,
+        &:focus-visible &-arrow {
+            transform: translateX(4px);
+        }
+
+        &-arrow {
+            flex-shrink: 0;
+            transition: transform 500ms ease;
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
+        }
+    }
+}

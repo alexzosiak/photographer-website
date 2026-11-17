@@ -1,0 +1,130 @@
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    padding-bottom: 6rem;
+    height: 84vh;
+    width: 100%;
+    overflow: hidden;
+
+    @media (min-width: 768px) {
+        height: 90vh;
+    }
+
+    // align-items: center; height: 100vh;
+    background:
+        linear-gradient(
+            to top,
+            rgb(0 0 0 / 0.75),
+            rgb(0 0 0 / 0.3),
+            rgb(0 0 0 / 0.2)
+        ),
+        url('./hero.png') center 60% / cover no-repeat;
+
+    &__title {
+        text-align: center;
+        margin-bottom: 0.75rem;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.38em;
+        color: rgb(255 255 255);
+        @media (min-width: 768px) {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+    }
+
+    &__subtitle {
+        text-align: center;
+        margin-bottom: 1rem;
+        max-width: 56rem;
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+        font-weight: 300;
+        line-height: 1.1;
+        color: rgb(255 255 255);
+        letter-spacing: 0.025em;
+        @media (min-width: 640px) {
+            font-size: 3rem;
+            line-height: 1;
+        }
+        @media (min-width: 768px) {
+            font-size: 3.75rem;
+            line-height: 1;
+        }
+        @media (min-width: 1024px) {
+            font-size: 4.5rem;
+            line-height: 1;
+        }
+    }
+
+    &__description {
+        text-align: center;
+        margin-bottom: 2rem;
+        max-width: 36rem;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        color: rgb(255 255 255 / 0.9);
+        @media (min-width: 640px) {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        @media (min-width: 768px) {
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+    }
+
+    &__button-container {
+        display: flex;
+        gap: 16px;
+    }
+
+    &__button-portfolio {
+        cursor: pointer;
+        background-color: rgb(255 255 255);
+        padding-left: 2.25rem;
+        padding-right: 2.25rem;
+        padding-top: 0.875rem;
+        padding-bottom: 0.875rem;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+        color: rgb(31 35 40);
+        transition-property:
+            color, background-color, border-color, text-decoration-color, fill,
+            stroke;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+        &:hover {
+            background-color: rgb(255 255 255 / 0.9);
+        }
+    }
+
+    &__button-contact {
+        cursor: pointer;
+        border: 1px solid white;
+        border-width: 1px;
+        border-color: rgb(255 255 255 / 0.8);
+        padding-left: 2.25rem;
+        padding-right: 2.25rem;
+        padding-top: 0.875rem;
+        padding-bottom: 0.875rem;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+        color: rgb(255 255 255);
+        transition-property:
+            color, background-color, border-color, text-decoration-color, fill,
+            stroke;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+        &:hover {
+            background-color: rgb(255 255 255 / 0.15);
+        }
+    }
+}

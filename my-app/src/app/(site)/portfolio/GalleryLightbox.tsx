@@ -1,6 +1,5 @@
 "use client";
 import styles from "./GalleryLightbox.module.scss";
-
 import { useEffect, useState } from "react";
 
 type Photo = {

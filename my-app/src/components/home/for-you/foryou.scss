@@ -1,0 +1,58 @@
+
+
+.foryou {
+    padding-inline: 1.25rem;
+
+    &__container {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 21.6rem);
+        align-items: center;
+        gap: 2rem;
+        width: 960px;
+        margin-inline: auto;
+        padding: 64px;
+        border: 1px solid rgb(75 82 90 / 0.3);
+    }
+
+    &__content {
+        min-width: 0;
+
+        &-title {
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            line-height: 1.15;
+        }
+
+        &-list {
+            display: grid;
+            gap: 1rem;
+            padding-left: 1.25rem;
+        }
+
+        &-item {
+            list-style-type: disc;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            color: rgb(92 100 109);
+        }
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+        max-width: 21.6rem;
+        height: auto;
+    }
+
+    @media (max-width: 767px) {
+        &__container {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1.5rem;
+            padding: 1.25rem;
+        }
+
+        &__img {
+            justify-self: center;
+        }
+    }
+}

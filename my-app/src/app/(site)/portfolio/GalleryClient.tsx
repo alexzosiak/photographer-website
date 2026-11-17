@@ -49,7 +49,7 @@ export default function GalleryClient({ galleries }: Props) {
           {filteredGalleries.map((gallery) => (
             <Link
               key={gallery.id}
-              href={`/gallery/${gallery.slug}`}
+              href={`/portfolio/${gallery.slug}`}
               className={styles.card}
             >
               {gallery.coverUrl ? (

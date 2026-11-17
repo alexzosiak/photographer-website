@@ -2,7 +2,7 @@
     position: sticky;
     top: 0px;
     z-index: 40;
-    padding: 0.5rem;
+    padding: 0.8rem;
     border-bottom-width: 1px;
     border-color: rgb(226 229 233);
     background-color: rgb(255 255 255 / 0.85);
@@ -11,7 +11,7 @@
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
-
+    border-bottom: 1px solid rgb(0, 0, 0, 0.1);
     // &__container {
     //     margin-left: auto;
     //     margin-right: auto;

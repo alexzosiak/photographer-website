@@ -8,7 +8,7 @@ import './app-navigation.scss';
 
 const links = [
     { key: 'home', href: '/', label: 'Home' },
-    { key: 'portfolio', href: '/gallery', label: 'Portfolio' },
+    { key: 'portfolio', href: '/portfolio', label: 'Portfolio' },
     { key: 'pricing', href: '/price', label: 'Pricing & Conditions' },
     { key: 'contact', href: '/contact', label: 'Contact' },
 ];
