@@ -1,0 +1,152 @@
+.price {
+    padding: 70px clamp(20px, 4vw, 74px);
+    color: #22262b;
+    background: #fff;
+
+    &__container {
+        width: 1056px;
+        margin: 0 auto;
+    }
+
+    &__title {
+        margin: 0 0 64px;
+        text-align: center;
+        font-size: clamp(36px, 4vw, 64px);
+        font-weight: 300;
+        line-height: 1.15;
+    }
+
+    &__packages {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(24px, 3vw, 54px);
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        padding: clamp(24px, 2.5vw, 48px);
+        border: 1px solid #dcdfe3;
+    }
+
+    &__image {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        background: #f4f5f6;
+    }
+
+    &__packageTitle {
+        margin: 42px 0 36px;
+        text-align: center;
+        font-size: clamp(26px, 2.2vw, 34px);
+        font-weight: 400;
+        line-height: 1.3;
+        letter-spacing: 0.25em;
+        text-indent: 0.25em;
+        text-transform: uppercase;
+    }
+
+    &__features {
+        flex: 1;
+        margin: 0 0 44px;
+        padding-left: 18px;
+        color: #65707d;
+        font-size: 16px;
+        line-height: 1.8;
+
+        li {
+            padding-left: 4px;
+            list-style-type: disc;
+
+            & + li {
+                margin-top: 18px;
+            }
+        }
+    }
+
+    &__footer {
+        padding-top: 36px;
+        border-top: 1px solid #dcdfe3;
+    }
+
+    &__amount {
+        margin: 0 0 28px;
+        font-family: var(--font-cormorant), Georgia, serif;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 1.3;
+        letter-spacing: 0.2em;
+        text-indent: 0.2em;
+        white-space: nowrap;
+    }
+
+    &__bookButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 14px 16px;
+        border: 1px solid #a0a6ad;
+        color: #4d5662;
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: background-color 200ms ease, color 200ms ease;
+
+        &:hover {
+            background: #22262b;
+            color: #fff;
+        }
+
+        &:focus-visible {
+            outline: 2px solid #22262b;
+            outline-offset: 4px;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        &__packages {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 640px) {
+        & {
+            padding: 48px 20px;
+        }
+
+        &__title {
+            margin-bottom: 36px;
+        }
+
+        &__packages {
+            grid-template-columns: minmax(0, 1fr);
+            max-width: 440px;
+        }
+
+        &__card {
+            padding: 24px;
+        }
+
+        &__packageTitle {
+            margin: 28px 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__bookButton {
+            transition: none;
+        }
+    }
+}

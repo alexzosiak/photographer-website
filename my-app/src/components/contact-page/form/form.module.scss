@@ -1,0 +1,220 @@
+.form {
+    padding: 60px clamp(20px, 5vw, 100px);
+    color: #22262b;
+
+    &__card {
+        display: grid;
+        grid-template-columns: minmax(0, 0.68fr) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(36px, 5vw, 90px);
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: clamp(28px, 5vw, 90px);
+        border: 1px solid #dcdfe3;
+        background: #fff;
+    }
+
+    &__portrait {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        background: #f4f5f6;
+    }
+
+    &__content {
+        min-width: 0;
+    }
+
+    &__header {
+        margin-bottom: 40px;
+    }
+
+    &__title {
+        margin-bottom: 12px;
+        font-size: clamp(36px, 3.5vw, 54px);
+        font-weight: 400;
+        line-height: 1.2;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    &__intro,
+    &__instructions {
+        color: #606975;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    &__fields {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px;
+    }
+
+    &__instructions,
+    &__sendError,
+    &__errors,
+    &__status {
+        grid-column: 1 / -1;
+    }
+
+    &__instructions {
+        margin-bottom: -20px;
+    }
+
+    &__honeypot {
+        display: none;
+    }
+
+    &__field {
+        min-width: 0;
+
+        &[data-full-width='true'] {
+            grid-column: 1 / -1;
+        }
+    }
+
+    &__label {
+        display: block;
+        margin-bottom: 16px;
+        font-size: 14px;
+        line-height: 1.6;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    &__input {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 8px 2px 16px;
+        border: 0;
+        border-bottom: 1px solid #cdd2d9;
+        border-radius: 0;
+        background: transparent;
+        color: #22262b;
+        font: inherit;
+        font-size: 18px;
+        line-height: 1.6;
+
+        &::placeholder {
+            color: #737e8c;
+            opacity: 1;
+        }
+
+        &[aria-invalid='true'] {
+            border-bottom-color: #a32b2b;
+        }
+    }
+
+    textarea#{&}__input {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    &__submit {
+        justify-self: start;
+        min-height: 58px;
+        padding: 18px 52px;
+        border: 1px solid #49515a;
+        background: #49515a;
+        color: #fff;
+        font: inherit;
+        font-size: 16px;
+        line-height: 1.4;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        &:hover {
+            background: #292f36;
+        }
+
+        &:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+    }
+
+    &__fieldError,
+    &__errors,
+    &__sendError {
+        color: #982525;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    &__fieldError {
+        margin-top: 8px;
+    }
+
+    &__errors {
+        padding: 16px;
+        border: 1px solid currentColor;
+
+        ul {
+            margin-top: 8px;
+            padding-left: 20px;
+        }
+
+        li {
+            list-style-type: disc;
+        }
+    }
+
+    &__status {
+        font-size: 16px;
+        line-height: 1.6;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    :is(input, textarea, button, a, [tabindex]):focus-visible {
+        outline: 2px solid #49515a;
+        outline-offset: 4px;
+    }
+
+    @media (max-width: 800px) {
+        &__card {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        &__portrait {
+            max-width: 420px;
+            justify-self: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        padding: 32px 16px;
+
+        &__card {
+            padding: 24px 18px;
+        }
+
+        &__fields {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 24px;
+        }
+
+        &__title {
+            font-size: 32px;
+            letter-spacing: 0.1em;
+        }
+
+        &__submit {
+            width: 100%;
+        }
+    }
+}

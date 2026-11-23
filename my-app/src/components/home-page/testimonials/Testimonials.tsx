@@ -3,7 +3,8 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import weddingPhoto from '../../tesimonials/2.png';
+import img from '@/test-img/1.png'
+
 import styles from './testimonials.module.scss';
 
 const testimonials = [
@@ -11,25 +12,25 @@ const testimonials = [
         name: 'Andrew and Pippa',
         occasion: 'Wedding in Ireland',
         quote: 'Wow, Victoria, the photos are absolutely incredible! You are so talented! Truly talented! We are amazed! It was such a pleasure working with you.',
-        image: weddingPhoto,
+        image: img,
     },
     {
         name: 'Andrew and Pippa',
         occasion: 'Wedding in Ireland',
         quote: 'Booking Victoria again was the best decision we made, and we couldn’t be happier with the results. Her dedication, creativity, and passion for photography truly stand out in her work. We highly recommend Mokina Photography to anyone looking to capture precious moments perfectly. We will definitely be booking her again in the future.',
-        image: weddingPhoto,
+        image: img,
     },
     {
         name: 'Andrew and Pippa',
         occasion: 'Wedding in Ireland',
         quote: 'Booking Victoria again was the best decision we made, and we couldn’t be happier with the results. Her dedication, creativity, and passion for photography truly stand out in her work. We highly recommend Mokina Photography to anyone looking to capture precious moments perfectly. We will definitely be booking her again in the future.',
-        image: weddingPhoto,
+        image: img,
     },
     {
         name: 'Andrew and Pippa',
         occasion: 'Wedding in Ireland',
         quote: 'Booking Victoria again was the best decision we made, and we couldn’t be happier with the results. Her dedication, creativity, and passion for photography truly stand out in her work. We highly recommend Mokina Photography to anyone looking to capture precious moments perfectly. We will definitely be booking her again in the future.',
-        image: weddingPhoto,
+        image: img,
     },
 ];
 
@@ -41,7 +42,7 @@ const Testimonials = () => {
     useEffect(() => {
         const intervalId = window.setInterval(() => {
             setActiveIndex((index) => (index + 1) % testimonials.length);
-        }, 10_000);
+        }, 3_000);
 
         return () => window.clearInterval(intervalId);
     }, []);
