@@ -7,6 +7,7 @@ import DeletePhotoButton from "./DeletePhotoButton";
 type Photo = {
   id: string;
   key: string;
+  preview_key?: string | null;
   sort_order: number;
 };
 
@@ -96,7 +97,7 @@ export default function SortablePhotos({ photos, title, publicUrl }: Props) {
             <DeletePhotoButton photoId={photo.id} />
 
             <img
-              src={`${publicUrl}/${photo.key}`}
+              src={`${publicUrl}/${photo.preview_key || photo.key}`}
               alt={title}
               style={{
                 width: "100%",

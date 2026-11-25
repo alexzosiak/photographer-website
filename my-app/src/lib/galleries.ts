@@ -21,6 +21,10 @@ export type GalleryPhoto = {
   id: string;
   key: string;
   sort_order: number;
+  preview_key: string | null;
+  display_key: string | null;
+  width: number | null;
+  height: number | null;
 };
 
 function getPublicR2Url() {

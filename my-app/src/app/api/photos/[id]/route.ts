@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import { r2 } from "@/lib/r2";
 import { pool } from "@/lib/db";
 
@@ -12,7 +12,7 @@ export async function DELETE(
 
     const photoResult = await pool.query(
       `
-      SELECT key
+      SELECT key, preview_key, display_key
       FROM photos
       WHERE id = $1
       `,
@@ -26,14 +26,16 @@ export async function DELETE(
       );
     }
 
-    const photoKey = photoResult.rows[0].key;
+    const photo = photoResult.rows[0];
+    const keys = [photo.key, photo.preview_key, photo.display_key].filter(Boolean);
 
-    await r2.send(
-      new DeleteObjectCommand({
+    const deletion = await r2.send(
+      new DeleteObjectsCommand({
         Bucket: process.env.R2_BUCKET_NAME!,
-        Key: photoKey,
+        Delete: { Objects: keys.map((Key) => ({ Key })) },
       })
     );
+    if (deletion.Errors?.length) throw new Error('Failed to delete photo files');
 
     await pool.query(
       `

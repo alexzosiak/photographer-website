@@ -1,0 +1,29 @@
+@use '@/scss/variable.scss' as *;
+
+.quote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    max-width: 900px;
+    margin-inline: auto;
+    padding: 0 24px;
+    text-align: center;
+}
+
+.text {
+    margin: 0;
+    color: $accent-color-dark;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-style: italic;
+    line-height: 1.4;
+    text-wrap: balance;
+}
+
+.author {
+    margin: 0;
+    color: $secondary-color-gray;
+    font-size: 14px;
+    line-height: 1.6;
+}

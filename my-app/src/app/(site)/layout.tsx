@@ -16,7 +16,7 @@ export default function RootLayout({
         <>
             <AppHeader />
             {children}
-            {/* <AppFooter /> */}
+            <AppFooter />
         </>
     );
 }

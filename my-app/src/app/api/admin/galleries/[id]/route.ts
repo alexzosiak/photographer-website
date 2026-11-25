@@ -177,7 +177,7 @@ export async function DELETE(
 
     const photosResult = await pool.query(
       `
-      SELECT key
+      SELECT key, preview_key, display_key
       FROM photos
       WHERE gallery_id = $1
       `,
@@ -196,7 +196,7 @@ export async function DELETE(
           ...coverFolderKeys,
           ...galleryFolderKeys,
           gallery.cover_key,
-          ...photosResult.rows.map((photo) => photo.key),
+          ...photosResult.rows.flatMap((photo) => [photo.key, photo.preview_key, photo.display_key]),
         ].filter(Boolean)
       )
     );

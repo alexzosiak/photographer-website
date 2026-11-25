@@ -58,3 +58,35 @@ The form reports success only after Gmail accepts the email. If configuration
 is missing or sending fails, the form keeps the entered details and displays
 an error. For an end-to-end check, submit a test enquiry and check the receiving
 inbox and spam folder.
+
+## Gallery photo versions
+
+Requires Node.js 24+ for the maintenance script and photo tests.
+New uploads retain the exact source file in R2 and generate proportional WebP
+versions: an 800px preview (quality 82) and a 2400px display image (quality 85),
+measured by the longest edge. EXIF rotation is applied; photos are never enlarged.
+The gallery and admin grid use previews; the viewer loads the display version.
+New covers use 1200px square WebP at quality 82.
+
+Before using the new upload flow on an existing database, run:
+
+```bash
+npm run photos:optimize
+npm run photos:optimize -- --apply
+```
+
+The first command only counts photos needing processing. `--apply` runs the
+idempotent `002_photo_variants.sql` migration and creates versions for existing
+photos using server credentials from `.env.local`. It preserves the existing
+source objects, processes one photo at a time, and publishes each pair of new
+keys/dimensions only after both files are uploaded. Rerunning skips completed
+photos and retries incomplete ones. Legacy photos fall back to their source
+until processed. Previous uploads retain their existing stored WebP source;
+the original camera file cannot be recovered from that source.
+
+Generated objects use `Cache-Control: public, max-age=31536000, immutable`.
+For production CDN caching, attach an R2 custom domain and configure
+`R2_PUBLIC_URL` accordingly; this script does not change domain settings.
+Deleting a photo or gallery also deletes its stored web versions and source.
+
+Run the image-processing and gallery-layout checks with `npm run test:photos`.

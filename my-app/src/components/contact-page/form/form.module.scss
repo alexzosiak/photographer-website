@@ -7,7 +7,7 @@
         grid-template-columns: minmax(0, 0.68fr) minmax(0, 1fr);
         align-items: center;
         gap: clamp(36px, 5vw, 90px);
-        max-width: 1500px;
+        max-width: 1056px;
         margin: 0 auto;
         padding: clamp(28px, 5vw, 90px);
         border: 1px solid #dcdfe3;
@@ -43,7 +43,7 @@
     &__intro,
     &__instructions {
         color: #606975;
-        font-size: 16px;
+        font-size: 11px;
         line-height: 1.6;
     }
 
@@ -89,7 +89,7 @@
         display: block;
         width: 100%;
         min-width: 0;
-        min-height: 48px;
+        min-height: 4px;
         padding: 8px 2px 16px;
         border: 0;
         border-bottom: 1px solid #cdd2d9;
@@ -97,7 +97,7 @@
         background: transparent;
         color: #22262b;
         font: inherit;
-        font-size: 18px;
+        font-size: 12px;
         line-height: 1.6;
 
         &::placeholder {
@@ -117,7 +117,7 @@
 
     &__submit {
         justify-self: start;
-        min-height: 58px;
+        min-height: 12px;
         padding: 18px 52px;
         border: 1px solid #49515a;
         background: #49515a;

@@ -53,7 +53,6 @@ const Faq = () => {
 
     return (
         <section className={styles.faq} aria-labelledby={`${sectionId}-title`}>
-            <div className={styles.faq__container}></div>
             <h2 id={`${sectionId}-title`} className={styles.faq__title}>FAQ</h2>
 
             <ul className={styles.faq__list}>

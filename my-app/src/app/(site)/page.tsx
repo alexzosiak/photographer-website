@@ -5,7 +5,6 @@ import ForYou from '@/components/home-page/for-you/Foryou';
 import ContactCta from '@/components/home-page/contact-cta/Contact-cta';
 import Testimonials from '@/components/home-page/testimonials/Testimonials';
 import SectionDivider from '@/components/shared/devider/Devider';
-import AppFooter from '@/components/shared/app-footer/AppFooter';
 
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
             <Testimonials/>
             <SectionDivider/>
             <ContactCta/>
-            <AppFooter/>
         </>
     );
 }

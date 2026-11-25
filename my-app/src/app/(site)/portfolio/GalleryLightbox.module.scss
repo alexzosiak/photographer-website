@@ -1,121 +1,148 @@
 .galleryGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &[data-ready='true'] {
+        display: block;
+
+        > li { position: absolute; }
+    }
+
+    &[data-ready='false'] .galleryPhotoButton { aspect-ratio: 3 / 2; }
+}
+.galleryItem {
+    min-width: 0;
 }
 
 .galleryPhotoButton {
-  overflow: hidden;
-  border: none;
-  border-radius: 8px;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-}
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: #f4f5f6;
+    cursor: pointer;
 
-.galleryPhotoButton img {
-  display: block;
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  transition: transform 180ms ease, filter 180ms ease;
-}
+    &:focus-visible {
+        outline: 2px solid #1f2328;
+        outline-offset: 5px;
+    }
 
-.galleryPhotoButton:hover img {
-  transform: scale(1.02);
-  filter: contrast(1.03) saturate(0.96);
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
 }
 
 .lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.96);
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 72px 80px;
+    border: 0;
+    color: #1f2328;
+    background: #fff;
+
+    &[open] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &::backdrop { background: #fff; }
+}
+
+.lightboxFrame {
+    width: 100%;
+    height: 100%;
 }
 
 .lightboxImage {
-  display: block;
-  width: 100vw;
-  height: 100dvh;
-  object-fit: contain;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 .lightboxClose,
 .lightboxPrev,
 .lightboxNext {
-  position: fixed;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  background: transparent;
-  color: white;
-  border: none;
-  cursor: pointer;
-  line-height: 1;
-  opacity: 0.86;
-  transition: opacity 160ms ease, background 160ms ease;
-}
+    position: absolute;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #1f2328;
+    cursor: pointer;
 
-.lightboxClose:hover,
-.lightboxPrev:hover,
-.lightboxNext:hover {
-  opacity: 1;
+    &:hover { color: #646d77; }
+
+    &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 4px;
+    }
 }
 
 .lightboxClose {
-  z-index: 2;
-  top: 18px;
-  right: 18px;
-  width: 52px;
-  height: 52px;
-  font-size: 42px;
+    top: 16px;
+    right: 20px;
 }
 
 .lightboxPrev {
-  left: 0;
-  top: 0;
-  width: 84px;
-  height: 100dvh;
-  font-size: 64px;
+    left: 16px;
+    top: calc(50% - 24px);
 }
 
 .lightboxNext {
-  right: 0;
-  top: 76px;
-  width: 84px;
-  height: calc(100dvh - 76px);
-  font-size: 64px;
+    right: 16px;
+    top: calc(50% - 24px);
 }
 
-@media (max-width: 640px) {
-  .galleryGrid {
-    grid-template-columns: 1fr;
-  }
+.counter {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
 
-  .galleryPhotoButton img {
-    height: 360px;
-  }
+@media (max-width: 900px) {
+    .galleryGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
-  .lightboxClose {
-    top: 10px;
-    right: 10px;
-    width: 46px;
-    height: 46px;
-    font-size: 36px;
-  }
+@media (max-width: 540px) {
+    .galleryGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
 
-  .lightboxPrev,
-  .lightboxNext {
-    width: 56px;
-    font-size: 48px;
-  }
-
-  .lightboxNext {
-    top: 62px;
-    height: calc(100dvh - 62px);
-  }
+    .lightbox { padding: 72px 12px 88px; }
+    .lightboxPrev,
+    .lightboxNext {
+        top: auto;
+        bottom: 16px;
+    }
+    .lightboxClose { right: 12px; }
+    .counter { bottom: 30px; }
 }

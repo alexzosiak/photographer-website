@@ -65,6 +65,10 @@ export default function UploadPhotoForm({ galleryId, slug }: Props) {
           body: JSON.stringify({
             galleryId,
             key: uploadData.key,
+            previewKey: uploadData.previewKey,
+            displayKey: uploadData.displayKey,
+            width: uploadData.width,
+            height: uploadData.height,
           }),
         });
 
